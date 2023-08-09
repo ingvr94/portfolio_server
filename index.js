@@ -11,7 +11,12 @@ const TOKEN = process.env.TOKEN;
 const CHAT_ID=process.env.CHAT_ID;
 const URI_API=`https://api.telegram.org/bot${ TOKEN }/sendMessage`;
 
-app.use(cors());
+app.listen(port,()=>{
+    console.log(`Server is listening on port ${port}`)
+});
+app.use(express.text());
+
+app.use(cors())
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -19,7 +24,6 @@ app.all('/*', function(req, res, next) {
     next();
   });
 
-app.use(express.text())
 
 app.post('/', (req,res)=>{
     axios.post(URI_API,{
@@ -29,7 +33,5 @@ app.post('/', (req,res)=>{
     })
 })
 
-app.listen(port,()=>{
-    console.log(`Server is listening on port ${port}`)
-})
+
 
