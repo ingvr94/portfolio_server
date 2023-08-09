@@ -26,6 +26,12 @@ app.all('/*', function(req, res, next) {
 
 
 app.post('/', (req,res)=>{
+    if(req.method === 'OPTIONS') {
+        return res.status(200).json(({
+            body: "OK"
+        }))
+    }
+    
     axios.post(URI_API,{
         chat_id:CHAT_ID,
         parse_mode:'html',
