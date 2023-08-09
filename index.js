@@ -2,19 +2,16 @@ require('dotenv').config();
 
 const express=require('express');
 const app=express();
-const cors = require('cors');
+var cors = require('cors');
 const axios = require('axios');
 
 const port=process.env.port || 3000;
 
-const TOKEN = process.env.TOKEN
-const CHAT_ID=process.env.CHAT_ID
+const TOKEN = process.env.TOKEN;
+const CHAT_ID=process.env.CHAT_ID;
 const URI_API=`https://api.telegram.org/bot${ TOKEN }/sendMessage`;
 
-
-app.use(express.text())
-
-app.use(cors())
+app.use(cors());
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -22,6 +19,7 @@ app.all('/*', function(req, res, next) {
     next();
   });
 
+app.use(express.text())
 
 app.post('/', (req,res)=>{
     axios.post(URI_API,{
